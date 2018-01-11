@@ -26,4 +26,46 @@ public class Product {
     @JoinColumn(name = "MANUFACTURER_ID")
     private Manufacturer manufacturer;
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Product{");
+        sb.append("productId=").append(productId);
+        sb.append(", productName='").append(productName).append('\'');
+        sb.append(", productPrice=").append(productPrice);
+        sb.append(", manufacturer=").append(manufacturer);
+        sb.append('}');
+        return sb.toString();
+    }
+
+    public UUID getProductId() {
+        return productId;
+    }
+
+    public void setProductId(UUID productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public BigDecimal getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(BigDecimal productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
+    }
 }

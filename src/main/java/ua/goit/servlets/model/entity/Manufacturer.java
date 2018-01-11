@@ -22,4 +22,38 @@ public class Manufacturer {
 
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Manufacturer{");
+        sb.append("manufacturerId=").append(manufacturerId);
+        sb.append(", manufacturerName='").append(manufacturerName).append('\'');
+        sb.append(", products=").append(products);
+        sb.append('}');
+        return sb.toString();
+    }
+
+    public UUID getManufacturerId() {
+        return manufacturerId;
+    }
+
+    public void setManufacturerId(UUID manufacturerId) {
+        this.manufacturerId = manufacturerId;
+    }
+
+    public String getManufacturerName() {
+        return manufacturerName;
+    }
+
+    public void setManufacturerName(String manufacturerName) {
+        this.manufacturerName = manufacturerName;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }
