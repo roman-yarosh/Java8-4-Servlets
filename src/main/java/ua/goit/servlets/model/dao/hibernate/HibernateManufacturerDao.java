@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.goit.servlets.model.dao.ManufacturerDao;
 import ua.goit.servlets.model.entity.Manufacturer;
-import ua.goit.servlets.model.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
