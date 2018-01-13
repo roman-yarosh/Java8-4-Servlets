@@ -12,6 +12,7 @@ import java.util.UUID;
 public class HibernateProductController implements Contriller<Product, UUID>{
 
     private HibernateProductDao hibernateProductDao = HibernateProductDao.getInstance(HibernateUtil.getSessionFactory());
+
     @Override
     public Optional<Product> read(UUID key) {
         return hibernateProductDao.read(key);
