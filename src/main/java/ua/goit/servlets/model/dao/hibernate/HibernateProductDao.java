@@ -12,9 +12,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-/**
- * Created by Роман on 11.01.2018.
- */
 public class HibernateProductDao implements ProductDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HibernateProductDao.class);

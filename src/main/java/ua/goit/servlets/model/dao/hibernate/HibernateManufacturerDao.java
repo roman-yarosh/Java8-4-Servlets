@@ -92,7 +92,7 @@ public class HibernateManufacturerDao implements ManufacturerDao {
         List<Manufacturer> manufacturerList = new ArrayList<>();
         try (Session session = getSessionFactory().openSession()){
             try {
-                manufacturerList = session.createQuery("FROM Manufacturer ").list();
+                manufacturerList = session.createQuery("FROM Manufacturer").list();
             } catch (Exception e) {
                 LOGGER.error(String.format("%s %s", "Exception while selecting all manufacturers", e.getMessage()));
             }
