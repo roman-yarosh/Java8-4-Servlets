@@ -17,11 +17,23 @@ public class Manufacturer {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID manufacturerId;
 
-    @Column(name = "MANUFACTURER_NAME")
+    @Column(name = "MANUFACTURER_NAME", unique = true)
     private String manufacturerName;
 
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
+
+    public Manufacturer() {
+    }
+
+    public Manufacturer(String manufacturerName) {
+        this.manufacturerName = manufacturerName;
+    }
+
+    public Manufacturer(String manufacturerName, List<Product> products) {
+        this.manufacturerName = manufacturerName;
+        this.products = products;
+    }
 
     @Override
     public String toString() {

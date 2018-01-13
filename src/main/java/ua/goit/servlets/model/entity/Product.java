@@ -16,7 +16,7 @@ public class Product {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID productId;
 
-    @Column(name = "PRODUCT_NAME")
+    @Column(name = "PRODUCT_NAME", unique = true)
     private String productName;
 
     @Column(name = "PRODUCT_PRICE")
@@ -25,6 +25,15 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MANUFACTURER_ID")
     private Manufacturer manufacturer;
+
+    public Product() {
+    }
+
+    public Product(String productName, BigDecimal productPrice, Manufacturer manufacturer) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.manufacturer = manufacturer;
+    }
 
     @Override
     public String toString() {

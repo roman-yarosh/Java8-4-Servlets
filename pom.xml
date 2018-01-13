@@ -11,10 +11,14 @@
     <name>Servlets - Products - Maven - Web Application</name>
 
     <properties>
-        <javax.servlet.api.version>2.5</javax.servlet.api.version>
+        <javax.servlet.api.version>3.1.0</javax.servlet.api.version>
         <tomcat.plagin.version>2.2</tomcat.plagin.version>
         <mysql.version>5.1.40</mysql.version>
         <slf4j.version>1.7.21</slf4j.version>
+        <jsp-api.version>2.2</jsp-api.version>
+        <jstl.version>1.2</jstl.version>
+        <jstl-api.version>1.2</jstl-api.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <hibernate.core.version>5.2.5.Final</hibernate.core.version>
         <hibernate.jpa.api.version>1.0.0.Final</hibernate.jpa.api.version>
     </properties>
@@ -31,12 +35,6 @@
             <version>${hibernate.jpa.api.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${javax.servlet.api.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
@@ -47,9 +45,29 @@
             <version>${slf4j.version}</version>
         </dependency>
         <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>${javax.servlet-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>${jstl-api.version}</version>
         </dependency>
     </dependencies>
 
