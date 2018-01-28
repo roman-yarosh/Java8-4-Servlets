@@ -21,6 +21,7 @@
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <hibernate.core.version>5.2.5.Final</hibernate.core.version>
         <hibernate.jpa.api.version>1.0.0.Final</hibernate.jpa.api.version>
+        <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
     </properties>
 
     <dependencies>
@@ -78,6 +79,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>

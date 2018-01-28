@@ -11,9 +11,9 @@ import java.util.UUID;
 public class Product {
 
     @Id
-    @Column(name = "PRODUCT_ID", nullable = false, updatable = false, unique = true)
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "PRODUCT_ID", nullable = false, updatable = false, unique = true, columnDefinition = "BINARY(16)")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID productId;
 
     @Column(name = "PRODUCT_NAME", unique = true)

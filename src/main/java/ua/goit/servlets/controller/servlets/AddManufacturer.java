@@ -15,15 +15,20 @@ import java.io.IOException;
 @WebServlet(name = "AddManufacturer", urlPatterns = "/manufacturer/add")
 public class AddManufacturer extends HttpServlet{
 
+    HibernateManufacturerDao hibernateManufacturerDao = HibernateManufacturerDao.getInstance(HibernateUtil.getSessionFactory());
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HibernateManufacturerDao hibernateManufacturerDao = HibernateManufacturerDao.getInstance(HibernateUtil.getSessionFactory());
+        RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/AddManufacturer.jsp");
+        requestDispatcher.forward(request, response);
+    }
 
-        String id = (String) request.getParameter("id");
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String manufacturerName = (String) request.getParameter("manufacturerName");
-
-        Manufacturer manufacturer = new Manufacturer(manufacturerName);
+        Manufacturer manufacturer = null;
 
         String errorString = null;
 
@@ -32,25 +37,21 @@ public class AddManufacturer extends HttpServlet{
         }
 
         if (errorString == null) {
+            manufacturer = new Manufacturer(manufacturerName);
             hibernateManufacturerDao.create(manufacturer);
         }
 
         request.setAttribute("errorString", errorString);
 
-        RequestDispatcher dispatcher;
+        RequestDispatcher requestDispatcher;
         if (errorString != null) {
-            request.setAttribute("manufacturer", manufacturer);
-            dispatcher = request.getServletContext().getRequestDispatcher("/AddFormManufacturer.jsp");
+            requestDispatcher = request.getServletContext().getRequestDispatcher("/AddManufacturer.jsp");
         }
         else {
             request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
-            dispatcher = request.getServletContext().getRequestDispatcher("/Manufacturers.jsp");
+            requestDispatcher = request.getServletContext().getRequestDispatcher("/Manufacturers.jsp");
         }
-        dispatcher.forward(request, response);
-    }
+        requestDispatcher.forward(request, response);
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
     }
 }

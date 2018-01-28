@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ManufacturersServlet", urlPatterns = {"/manufacturers"})
+@WebServlet(name = "ManufacturersServlet", urlPatterns = {"/manufacturer/all"})
 public class ManufacturersServlet extends HttpServlet{
+
+    HibernateManufacturerDao hibernateManufacturerDao = HibernateManufacturerDao.getInstance(HibernateUtil.getSessionFactory());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        HibernateManufacturerDao hibernateManufacturerDao = HibernateManufacturerDao.getInstance(HibernateUtil.getSessionFactory());
 
         request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
 

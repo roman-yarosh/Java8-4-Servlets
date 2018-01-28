@@ -12,9 +12,9 @@ import java.util.UUID;
 public class Manufacturer {
 
     @Id
-    @Column(name = "MANUFACTURER_ID", nullable = false, updatable = false, unique = true)
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "MANUFACTURER_ID", nullable = false, updatable = false, unique = true, columnDefinition = "BINARY(16)")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID manufacturerId;
 
     @Column(name = "MANUFACTURER_NAME", unique = true)
@@ -24,6 +24,11 @@ public class Manufacturer {
     private List<Product> products = new ArrayList<>();
 
     public Manufacturer() {
+    }
+
+    public Manufacturer(UUID manufacturerId, String manufacturerName) {
+        this.manufacturerId = manufacturerId;
+        this.manufacturerName = manufacturerName;
     }
 
     public Manufacturer(String manufacturerName) {

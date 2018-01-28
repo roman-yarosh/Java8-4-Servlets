@@ -4,18 +4,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Create new Manufacturer</title>
+    <title>Edit Manufacturer</title>
 </head>
 <body>
-<h3>Create new Manufacturer</h3>
+<h3>Edit Manufacturer</h3>
 
 <p style="color: red;">${errorString}</p>
 
-<form method="POST" action="/manufacturer/add">
+<form method="POST" action="/manufacturer/update">
     <table border="0">
         <tr>
             <td>Manufacturer name</td>
-            <td><input type="text" name="manufacturerName" value="${manufacturer.manufacturerName}" /></td>
+            <td><input type="text" name="manufacturerName" value="${manufacturerName}" />
+                <input type="hidden" name="manufacturerId" value="${manufacturerId}" /></td>
         </tr>
         <tr>
             <td colspan="2">

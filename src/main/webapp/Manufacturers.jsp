@@ -25,16 +25,16 @@
             <td>${manufacturer.manufacturerId}</td>
             <td>${manufacturer.manufacturerName}</td>
             <td>
-                <a href="/manufacturers/edit?id=${manufacturer.manufacturerId}">Edit</a>
+                <a href="/manufacturer/update?id=${manufacturer.manufacturerId}">Update</a>
             </td>
             <td>
-                <a href="/manufacturers/delete?id=${manufacturer.manufacturerId}">Delete</a>
+                <a href="/manufacturer/delete?id=${manufacturer.manufacturerId}">Delete</a>
             </td>
         </tr>
     </c:forEach>
 </table>
 <br>
-<a href="/manufacturers/addform">Create new Manufacturer</a>
+<a href="/manufacturer/add">Create new Manufacturer</a>
 
 </body>
 </html>
