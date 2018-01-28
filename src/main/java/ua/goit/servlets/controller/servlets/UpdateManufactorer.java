@@ -33,17 +33,22 @@ public class UpdateManufactorer extends HttpServlet{
         RequestDispatcher requestDispatcher;
         if (errorString == null) {
             manufacturerOptional = hibernateManufacturerDao.read(UUID.fromString(manufacturerId));
-            manufacturer = manufacturerOptional.get();
+            if (manufacturerOptional.isPresent()) {
+                manufacturer = manufacturerOptional.get();
 
-            request.setAttribute("manufacturerId", manufacturer.getManufacturerId());
-            request.setAttribute("manufacturerName", manufacturer.getManufacturerName());
+                request.setAttribute("manufacturerId", manufacturer.getManufacturerId());
+                request.setAttribute("manufacturerName", manufacturer.getManufacturerName());
 
-            requestDispatcher = request.getServletContext().getRequestDispatcher("/UpdateManufacturer.jsp");
-        } else {
-            request.setAttribute("errorString", errorString);
-            request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
-            requestDispatcher = request.getServletContext().getRequestDispatcher("/Manufacturers.jsp");
+                requestDispatcher = request.getServletContext().getRequestDispatcher("/UpdateManufacturer.jsp");
+                requestDispatcher.forward(request, response);
+            } else {
+                errorString = "Manufacturer with UUID " + manufacturerId + " is not in DB!";
+            }
         }
+
+        request.setAttribute("errorString", errorString);
+        request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
+        requestDispatcher = request.getServletContext().getRequestDispatcher("/Manufacturers.jsp");
         requestDispatcher.forward(request, response);
     }
 
