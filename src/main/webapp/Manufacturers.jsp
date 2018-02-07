@@ -8,7 +8,7 @@
     <title>Manufacturers List</title>
 </head>
 <body>
-
+<a href="/index.html">Home</a><br>
 <h3>Manufacturers List</h3>
 
 <p style="color: red;">${errorString}</p>

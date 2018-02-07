@@ -27,7 +27,7 @@ public class AddManufacturer extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String manufacturerName = (String) request.getParameter("manufacturerName");
+        String manufacturerName = request.getParameter("manufacturerName");
         Manufacturer manufacturer = null;
 
         String errorString = null;

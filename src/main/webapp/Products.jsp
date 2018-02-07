@@ -8,7 +8,7 @@
     <title>Products List</title>
 </head>
 <body>
-
+<a href="/index.html">Home</a><br>
 <h3>Products List</h3>
 
 <p style="color: red;">${errorString}</p>
@@ -27,7 +27,7 @@
             <td>${product.productId}</td>
             <td>${product.productName}</td>
             <td>${product.productPrice}</td>
-            <td>${product.productManufacturer}</td>
+            <td>${product.getManufacturer().getManufacturerName()}</td>
             <td>
                 <a href="/product/update?id=${product.productId}">Update</a>
             </td>

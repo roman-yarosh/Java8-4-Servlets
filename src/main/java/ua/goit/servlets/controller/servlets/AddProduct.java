@@ -14,15 +14,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Optional;
+import java.util.UUID;
 
 @WebServlet(name = "AddProduct", urlPatterns = "/product/add")
-public class AddProduct extends HttpServlet{
+public class AddProduct extends HttpServlet {
 
     HibernateProductDao hibernateProductDao = HibernateProductDao.getInstance(HibernateUtil.getSessionFactory());
+    HibernateManufacturerDao hibernateManufacturerDao = HibernateManufacturerDao.getInstance(HibernateUtil.getSessionFactory());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
         RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/AddProduct.jsp");
         requestDispatcher.forward(request, response);
     }
@@ -31,13 +36,13 @@ public class AddProduct extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Product product = null;
+        Optional<Manufacturer> manufacturerOptional = null;
         String errorString = null;
+        BigDecimal price = null;
 
-        String productName = (String) request.getParameter("productName");
-        String productPrice = (String) request.getParameter("productPrice");
-        String manufacturerName = (String) request.getParameter("manufacturerName");
-
-
+        String productName = request.getParameter("productName");
+        String productPrice = request.getParameter("productPrice");
+        String manufacturerId = request.getParameter("manufacturerId");
 
         if (productName == null || productName.isEmpty()) {
             errorString = "Product name is empty!";
@@ -49,36 +54,48 @@ public class AddProduct extends HttpServlet{
             } else {
                 errorString += " And Product price is empty!";
             }
-        }
-
-        if (manufacturerName == null || manufacturerName.isEmpty()) {
-            if (errorString == null) {
-                errorString = "Manufacturer name is empty!";
-            } else {
-                errorString += " And Manufacturer name is empty!";
+        } else {
+            try {
+                price = new BigDecimal(productPrice);
+            } catch (NumberFormatException e) {
+                if (errorString == null) {
+                    errorString = "Product price is invalid!";
+                } else {
+                    errorString += " And Product price is invalid!";
+                }
             }
         }
 
-
-        if (errorString == null) {
-            manufacturer = new Manufacturer(manufacturerName);
-            hibernateManufacturerDao.create(manufacturer);
+        if (manufacturerId == null || manufacturerId.isEmpty()) {
+            if (errorString == null) {
+                errorString = "Manufacturer id is empty!";
+            } else {
+                errorString += " And Manufacturer id is empty!";
+            }
+        } else {
+            manufacturerOptional = hibernateManufacturerDao.read(UUID.fromString(manufacturerId));
+            if (!manufacturerOptional.isPresent()) {
+                if (errorString == null) {
+                    errorString = "Manufacturer id is invalid!";
+                } else {
+                    errorString += " And Manufacturer id is invalid!";
+                }
+            }
         }
 
         if (errorString == null) {
-            manufacturer = new Manufacturer(manufacturerName);
-            hibernateManufacturerDao.create(manufacturer);
+            product = new Product(productName,price, manufacturerOptional.get());
+            hibernateProductDao.create(product);
         }
-
-        request.setAttribute("errorString", errorString);
 
         RequestDispatcher requestDispatcher;
         if (errorString != null) {
-            requestDispatcher = request.getServletContext().getRequestDispatcher("/AddManufacturer.jsp");
-        }
-        else {
+            request.setAttribute("errorString", errorString);
             request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
-            requestDispatcher = request.getServletContext().getRequestDispatcher("/Manufacturers.jsp");
+            requestDispatcher = request.getServletContext().getRequestDispatcher("/AddProduct.jsp");
+        } else {
+            request.setAttribute("productsList", hibernateProductDao.getAll());
+            requestDispatcher = request.getServletContext().getRequestDispatcher("/Products.jsp");
         }
         requestDispatcher.forward(request, response);
 
