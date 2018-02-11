@@ -18,6 +18,7 @@ import java.util.UUID;
 public class UpdateManufactorer extends HttpServlet{
 
     HibernateManufacturerDao hibernateManufacturerDao = HibernateManufacturerDao.getInstance(HibernateUtil.getSessionFactory());
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -62,7 +63,7 @@ public class UpdateManufactorer extends HttpServlet{
         String errorString = null;
 
         if (manufacturerId == null || manufacturerId.isEmpty()) {
-            errorString = "Manufacturer UUID is invalid!";
+            errorString = "Manufacturer UUID is empty!";
         }
         if (manufacturerName == null || manufacturerName.isEmpty()) {
             if (errorString == null) {
@@ -87,7 +88,6 @@ public class UpdateManufactorer extends HttpServlet{
             dispatcher = request.getServletContext().getRequestDispatcher("/UpdateManufacturer.jsp");
         }
         dispatcher.forward(request, response);
-
     }
 }
 
