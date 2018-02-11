@@ -1,7 +1,6 @@
 package ua.goit.servlets.controller.servlets;
 
 import ua.goit.servlets.model.dao.hibernate.HibernateProductDao;
-import ua.goit.servlets.model.entity.Manufacturer;
 import ua.goit.servlets.model.entity.Product;
 import ua.goit.servlets.utils.HibernateUtil;
 
