@@ -28,7 +28,7 @@ public class DeleteManufacturer extends HttpServlet{
         Optional<Manufacturer> manufacturerOptional;
 
         if (manufacturerId == null || manufacturerId.isEmpty()) {
-            errorString = "Manufacturer UUID is invalid!";
+            errorString = "Manufacturer UUID is empty!";
         }
 
         RequestDispatcher requestDispatcher;
