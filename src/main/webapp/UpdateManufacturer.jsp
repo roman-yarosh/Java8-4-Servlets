@@ -21,7 +21,7 @@
         <tr>
             <td colspan="2">
                 <input type="submit" value="Submit" />&nbsp;
-                <a href="/manufacturers">Cancel</a>
+                <a href="/manufacturer/all">Cancel</a>
             </td>
         </tr>
     </table>
