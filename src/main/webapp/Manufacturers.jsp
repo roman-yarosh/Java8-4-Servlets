@@ -22,13 +22,13 @@
     </tr>
     <c:forEach items="${manufacturersList}" var="manufacturer" >
         <tr>
-            <td>${manufacturer.manufacturerId}</td>
-            <td>${manufacturer.manufacturerName}</td>
+            <td>${manufacturer.id}</td>
+            <td>${manufacturer.name}</td>
             <td>
-                <a href="/manufacturer/update?id=${manufacturer.manufacturerId}">Update</a>
+                <a href="/manufacturer/update?id=${manufacturer.id}">Update</a>
             </td>
             <td>
-                <a href="/manufacturer/delete?id=${manufacturer.manufacturerId}">Delete</a>
+                <a href="/manufacturer/delete?id=${manufacturer.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>

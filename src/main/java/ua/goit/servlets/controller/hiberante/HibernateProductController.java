@@ -1,6 +1,6 @@
 package ua.goit.servlets.controller.hiberante;
 
-import ua.goit.servlets.controller.Contriller;
+import ua.goit.servlets.controller.Controller;
 import ua.goit.servlets.model.dao.hibernate.HibernateProductDao;
 import ua.goit.servlets.model.entity.Product;
 import ua.goit.servlets.utils.HibernateUtil;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class HibernateProductController implements Contriller<Product, UUID>{
+public class HibernateProductController implements Controller<Product, UUID> {
 
     private HibernateProductDao hibernateProductDao = HibernateProductDao.getInstance(HibernateUtil.getSessionFactory());
 

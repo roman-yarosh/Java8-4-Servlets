@@ -15,10 +15,10 @@ public class Manufacturer {
     @Column(name = "MANUFACTURER_ID", nullable = false, updatable = false, unique = true, columnDefinition = "BINARY(16)")
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    private UUID manufacturerId;
+    private UUID Id;
 
     @Column(name = "MANUFACTURER_NAME", unique = true)
-    private String manufacturerName;
+    private String Name;
 
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
@@ -26,44 +26,44 @@ public class Manufacturer {
     public Manufacturer() {
     }
 
-    public Manufacturer(UUID manufacturerId, String manufacturerName) {
-        this.manufacturerId = manufacturerId;
-        this.manufacturerName = manufacturerName;
+    public Manufacturer(UUID Id, String Name) {
+        this.Id = Id;
+        this.Name = Name;
     }
 
-    public Manufacturer(String manufacturerName) {
-        this.manufacturerName = manufacturerName;
+    public Manufacturer(String Name) {
+        this.Name = Name;
     }
 
-    public Manufacturer(String manufacturerName, List<Product> products) {
-        this.manufacturerName = manufacturerName;
+    public Manufacturer(String Name, List<Product> products) {
+        this.Name = Name;
         this.products = products;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Manufacturer{");
-        sb.append("manufacturerId=").append(manufacturerId);
-        sb.append(", manufacturerName='").append(manufacturerName).append('\'');
+        sb.append("Id=").append(Id);
+        sb.append(", Name='").append(Name).append('\'');
         sb.append(", products=").append(products);
         sb.append('}');
         return sb.toString();
     }
 
-    public UUID getManufacturerId() {
-        return manufacturerId;
+    public UUID getId() {
+        return Id;
     }
 
-    public void setManufacturerId(UUID manufacturerId) {
-        this.manufacturerId = manufacturerId;
+    public void setId(UUID manufacturerId) {
+        this.Id = manufacturerId;
     }
 
-    public String getManufacturerName() {
-        return manufacturerName;
+    public String getName() {
+        return Name;
     }
 
-    public void setManufacturerName(String manufacturerName) {
-        this.manufacturerName = manufacturerName;
+    public void setName(String manufacturerName) {
+        this.Name = manufacturerName;
     }
 
     public List<Product> getProducts() {

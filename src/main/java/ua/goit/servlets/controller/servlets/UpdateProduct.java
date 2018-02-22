@@ -92,8 +92,8 @@ public class UpdateProduct extends HttpServlet {
             if (productOptional.isPresent()) {
                 if (errorString == null) {
                     product = productOptional.get();
-                    product.setProductName(productName);
-                    product.setProductPrice(new BigDecimal(productPrice));
+                    product.setName(productName);
+                    product.setPrice(new BigDecimal(productPrice));
                     product.setManufacturer(manufacturerOptional.get());
                     hibernateProductDao.update(product);
                 } else {

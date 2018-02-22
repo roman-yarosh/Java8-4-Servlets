@@ -1,6 +1,6 @@
 package ua.goit.servlets.controller.hiberante;
 
-import ua.goit.servlets.controller.Contriller;
+import ua.goit.servlets.controller.Controller;
 import ua.goit.servlets.model.dao.hibernate.HibernateManufacturerDao;
 import ua.goit.servlets.model.entity.Manufacturer;
 import ua.goit.servlets.utils.HibernateUtil;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class HibernateManufacturerController implements Contriller<Manufacturer, UUID>{
+public class HibernateManufacturerController implements Controller<Manufacturer, UUID> {
 
     private HibernateManufacturerDao hibernateManufacturerDao = HibernateManufacturerDao.getInstance(HibernateUtil.getSessionFactory());
 

@@ -37,8 +37,8 @@ public class UpdateManufactorer extends HttpServlet{
             if (manufacturerOptional.isPresent()) {
                 manufacturer = manufacturerOptional.get();
 
-                request.setAttribute("manufacturerId", manufacturer.getManufacturerId());
-                request.setAttribute("manufacturerName", manufacturer.getManufacturerName());
+                request.setAttribute("manufacturerId", manufacturer.getId());
+                request.setAttribute("manufacturerName", manufacturer.getName());
 
                 requestDispatcher = request.getServletContext().getRequestDispatcher("/UpdateManufacturer.jsp");
                 requestDispatcher.forward(request, response);

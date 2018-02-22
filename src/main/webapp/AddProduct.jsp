@@ -26,7 +26,7 @@
             <td>
                 <select name="manufacturerId">
                     <c:forEach items="${manufacturersList}" var="manufacturer">
-                    <option value="${manufacturer.manufacturerId}">${manufacturer.manufacturerName}</option>
+                    <option value="${manufacturer.id}">${manufacturer.name}</option>
                     </c:forEach>
                 </select>
             </td>

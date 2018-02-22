@@ -14,13 +14,13 @@ public class Product {
     @Column(name = "PRODUCT_ID", nullable = false, updatable = false, unique = true, columnDefinition = "BINARY(16)")
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    private UUID productId;
+    private UUID id;
 
     @Column(name = "PRODUCT_NAME", unique = true)
-    private String productName;
+    private String name;
 
     @Column(name = "PRODUCT_PRICE")
-    private BigDecimal productPrice;
+    private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MANUFACTURER_ID")
@@ -29,45 +29,45 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productName, BigDecimal productPrice, Manufacturer manufacturer) {
-        this.productName = productName;
-        this.productPrice = productPrice;
+    public Product(String Name, BigDecimal price, Manufacturer manufacturer) {
+        this.name = Name;
+        this.price = price;
         this.manufacturer = manufacturer;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Product{");
-        sb.append("productId=").append(productId);
-        sb.append(", productName='").append(productName).append('\'');
-        sb.append(", productPrice=").append(productPrice);
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", price=").append(price);
         sb.append(", manufacturer=").append(manufacturer);
         sb.append('}');
         return sb.toString();
     }
 
-    public UUID getProductId() {
-        return productId;
+    public UUID getId() {
+        return id;
     }
 
-    public void setProductId(UUID productId) {
-        this.productId = productId;
+    public void setId(UUID productId) {
+        this.id = productId;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String productName) {
+        this.name = productName;
     }
 
-    public BigDecimal getProductPrice() {
-        return productPrice;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setProductPrice(BigDecimal productPrice) {
-        this.productPrice = productPrice;
+    public void setPrice(BigDecimal productPrice) {
+        this.price = productPrice;
     }
 
     public Manufacturer getManufacturer() {

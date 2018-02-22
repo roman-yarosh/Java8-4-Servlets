@@ -24,15 +24,15 @@
     </tr>
     <c:forEach items="${productsList}" var="product" >
         <tr>
-            <td>${product.productId}</td>
-            <td>${product.productName}</td>
-            <td>${product.productPrice}</td>
-            <td>${product.getManufacturer().getManufacturerName()}</td>
+            <td>${product.id}</td>
+            <td>${product.name}</td>
+            <td>${product.price}</td>
+            <td>${product.getManufacturer().getName()}</td>
             <td>
-                <a href="/product/update?id=${product.productId}">Update</a>
+                <a href="/product/update?id=${product.id}">Update</a>
             </td>
             <td>
-                <a href="/product/delete?id=${product.productId}">Delete</a>
+                <a href="/product/delete?id=${product.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>
