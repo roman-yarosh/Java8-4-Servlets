@@ -1,5 +1,6 @@
 package ua.goit.servlets.controller.servlets;
 
+import org.apache.commons.lang3.StringUtils;
 import ua.goit.servlets.model.dao.hibernate.HibernateManufacturerDao;
 import ua.goit.servlets.model.entity.Manufacturer;
 import ua.goit.servlets.utils.HibernateUtil;
@@ -14,6 +15,8 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
+import static ua.goit.servlets.utils.Constants.*;
+
 @WebServlet(name = "UpdateManufactorer", urlPatterns = "/manufacturer/update")
 public class UpdateManufactorer extends HttpServlet{
 
@@ -27,19 +30,19 @@ public class UpdateManufactorer extends HttpServlet{
         Manufacturer manufacturer = null;
         Optional<Manufacturer> manufacturerOptional;
 
-        if (manufacturerId == null || manufacturerId.isEmpty()) {
+        if (StringUtils.isEmpty(manufacturerId)) {
             errorString = "Manufacturer UUID is invalid!";
         }
 
         RequestDispatcher requestDispatcher;
-        if (errorString == null) {
+        if (StringUtils.isEmpty(errorString)) {
             manufacturerOptional = hibernateManufacturerDao.read(UUID.fromString(manufacturerId));
             if (manufacturerOptional.isPresent()) {
                 manufacturer = manufacturerOptional.get();
 
                 request.setAttribute("manufacturerId", manufacturer.getId());
                 request.setAttribute("manufacturerName", manufacturer.getName());
-
+                initConstants(request);
                 requestDispatcher = request.getServletContext().getRequestDispatcher("/UpdateManufacturer.jsp");
                 requestDispatcher.forward(request, response);
             } else {
@@ -49,6 +52,7 @@ public class UpdateManufactorer extends HttpServlet{
 
         request.setAttribute("errorString", errorString);
         request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
+        initManufacturersConstants(request);
         requestDispatcher = request.getServletContext().getRequestDispatcher("/Manufacturers.jsp");
         requestDispatcher.forward(request, response);
     }
@@ -62,11 +66,11 @@ public class UpdateManufactorer extends HttpServlet{
 
         String errorString = null;
 
-        if (manufacturerId == null || manufacturerId.isEmpty()) {
+        if (StringUtils.isEmpty(manufacturerId)) {
             errorString = "Manufacturer UUID is empty!";
         }
-        if (manufacturerName == null || manufacturerName.isEmpty()) {
-            if (errorString == null) {
+        if (StringUtils.isEmpty(manufacturerName)) {
+            if (StringUtils.isEmpty(errorString)) {
                 errorString = "Manufacturer name is invalid!";
             } else {
                 errorString += " And Manufacturer name is invalid!";
@@ -76,18 +80,28 @@ public class UpdateManufactorer extends HttpServlet{
         request.setAttribute("errorString", errorString);
 
         RequestDispatcher dispatcher;
-        if (errorString == null) {
+        if (StringUtils.isEmpty(errorString)) {
             manufacturer = new Manufacturer(UUID.fromString(manufacturerId), manufacturerName);
             hibernateManufacturerDao.update(manufacturer);
             request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
+            initManufacturersConstants(request);
             dispatcher = request.getServletContext().getRequestDispatcher("/Manufacturers.jsp");
 
         } else {
+            initConstants(request);
             request.setAttribute("manufacturerId", manufacturerId);
             request.setAttribute("manufacturerName", manufacturerName);
             dispatcher = request.getServletContext().getRequestDispatcher("/UpdateManufacturer.jsp");
         }
         dispatcher.forward(request, response);
+    }
+
+    private void initConstants(HttpServletRequest request) {
+        request.setAttribute("BORDER_WIDTH_0", BORDER_WIDTH_0);
+        request.setAttribute("TWO_COLUMNS", TWO_COLUMNS);
+
+        request.setAttribute("MANUFACTURER_EDIT", MANUFACTURER_EDIT);
+        request.setAttribute("MANUFACTURER_NAME", MANUFACTURER_NAME);
     }
 }
 

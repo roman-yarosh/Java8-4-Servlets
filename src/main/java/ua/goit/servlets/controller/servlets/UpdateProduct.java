@@ -1,5 +1,6 @@
 package ua.goit.servlets.controller.servlets;
 
+import org.apache.commons.lang3.StringUtils;
 import ua.goit.servlets.model.dao.hibernate.HibernateManufacturerDao;
 import ua.goit.servlets.model.dao.hibernate.HibernateProductDao;
 import ua.goit.servlets.model.entity.Manufacturer;
@@ -18,6 +19,8 @@ import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
+import static ua.goit.servlets.utils.Constants.*;
+
 @WebServlet(name = "UpdateProduct", urlPatterns = "/product/update")
 public class UpdateProduct extends HttpServlet {
 
@@ -31,19 +34,19 @@ public class UpdateProduct extends HttpServlet {
         Product product = null;
         Optional<Product> productOptional;
 
-        if (productId == null || productId.isEmpty()) {
+        if (StringUtils.isEmpty(productId)) {
             errorString = "Product UUID is empty!";
         }
 
         RequestDispatcher requestDispatcher;
-        if (errorString == null) {
+        if (StringUtils.isEmpty(errorString)) {
             productOptional = hibernateProductDao.read(UUID.fromString(productId));
             if (productOptional.isPresent()) {
                 product = productOptional.get();
 
                 request.setAttribute("product", product);
                 request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
-
+                initConstants(request);
                 requestDispatcher = request.getServletContext().getRequestDispatcher("/UpdateProduct.jsp");
                 requestDispatcher.forward(request, response);
             } else {
@@ -53,6 +56,7 @@ public class UpdateProduct extends HttpServlet {
 
         request.setAttribute("errorString", errorString);
         request.setAttribute("productsList", hibernateProductDao.getAll());
+        initProductsConstants(request);
         requestDispatcher = request.getServletContext().getRequestDispatcher("/Products.jsp");
         requestDispatcher.forward(request, response);
 
@@ -70,12 +74,12 @@ public class UpdateProduct extends HttpServlet {
         String productPrice = request.getParameter("productPrice");
         String manufacturerId = request.getParameter("manufacturerId");
 
-        if (productName == null || productName.isEmpty()) {
+        if (StringUtils.isEmpty(productName)) {
             errorString = "Product name is empty!";
         }
 
-        if (productId == null || productId.isEmpty()) {
-            if (errorString == null) {
+        if (StringUtils.isEmpty(productId)) {
+            if (StringUtils.isEmpty(errorString)) {
                 errorString = "Product id is empty!";
             } else {
                 errorString += " And Product id is empty!";
@@ -86,11 +90,11 @@ public class UpdateProduct extends HttpServlet {
         manufacturerOptional = hibernateManufacturerDao.read(UUID.fromString(manufacturerId));
         errorString = ServletUtils.checkManufacturerId(errorString, manufacturerId, manufacturerOptional);
 
-        if (errorString == null) {
+        if (StringUtils.isEmpty(errorString)) {
             productOptional = hibernateProductDao.read(UUID.fromString(productId));
 
             if (productOptional.isPresent()) {
-                if (errorString == null) {
+                if (StringUtils.isEmpty(errorString)) {
                     product = productOptional.get();
                     product.setName(productName);
                     product.setPrice(new BigDecimal(productPrice));
@@ -103,16 +107,34 @@ public class UpdateProduct extends HttpServlet {
         }
 
         RequestDispatcher requestDispatcher;
-        if (errorString != null) {
+        if (!StringUtils.isEmpty(errorString)) {
+            if (product == null) product = new Product();
+            if (!StringUtils.isEmpty(productId)) product.setId(UUID.fromString(productId));
+            if (!StringUtils.isEmpty(productPrice)) product.setPrice(new BigDecimal(productPrice));
+            if (!StringUtils.isEmpty(productName)) product.setName(productName);
             request.setAttribute("errorString", errorString);
             request.setAttribute("product", product);
             request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
+            initConstants(request);
             requestDispatcher = request.getServletContext().getRequestDispatcher("/UpdateProduct.jsp");
         } else {
             request.setAttribute("productsList", hibernateProductDao.getAll());
+            initProductsConstants(request);
             requestDispatcher = request.getServletContext().getRequestDispatcher("/Products.jsp");
         }
         requestDispatcher.forward(request, response);
     }
+
+    private void initConstants(HttpServletRequest request) {
+        request.setAttribute("BORDER_WIDTH_0", BORDER_WIDTH_0);
+        request.setAttribute("TWO_COLUMNS", TWO_COLUMNS);
+
+        request.setAttribute("PRODUCT_EDIT", PRODUCT_EDIT);
+        request.setAttribute("PRODUCT_NAME", PRODUCT_NAME);
+        request.setAttribute("PRODUCT_PRICE", PRODUCT_PRICE);
+        request.setAttribute("MANUFACTURER_NAME", MANUFACTURER_NAME);
+    }
+
+
 }
 

@@ -1,5 +1,6 @@
 package ua.goit.servlets.controller.servlets;
 
+import org.apache.commons.lang3.StringUtils;
 import ua.goit.servlets.model.dao.hibernate.HibernateManufacturerDao;
 import ua.goit.servlets.model.entity.Manufacturer;
 import ua.goit.servlets.utils.HibernateUtil;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static ua.goit.servlets.utils.Constants.*;
+
 @WebServlet(name = "AddManufacturer", urlPatterns = "/manufacturer/add")
 public class AddManufacturer extends HttpServlet{
 
@@ -20,6 +23,7 @@ public class AddManufacturer extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        initConstants(request);
         RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/AddManufacturer.jsp");
         requestDispatcher.forward(request, response);
     }
@@ -32,11 +36,11 @@ public class AddManufacturer extends HttpServlet{
 
         String errorString = null;
 
-        if (manufacturerName == null || manufacturerName.isEmpty()) {
+        if (StringUtils.isEmpty(manufacturerName)) {
             errorString = "Manufacturer name is empty!";
         }
 
-        if (errorString == null) {
+        if (StringUtils.isEmpty(errorString)) {
             manufacturer = new Manufacturer(manufacturerName);
             hibernateManufacturerDao.create(manufacturer);
         }
@@ -44,14 +48,23 @@ public class AddManufacturer extends HttpServlet{
         request.setAttribute("errorString", errorString);
 
         RequestDispatcher requestDispatcher;
-        if (errorString != null) {
+        if (!StringUtils.isEmpty(errorString)) {
+            initConstants(request);
             requestDispatcher = request.getServletContext().getRequestDispatcher("/AddManufacturer.jsp");
         }
         else {
+            initManufacturersConstants(request);
             request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
             requestDispatcher = request.getServletContext().getRequestDispatcher("/Manufacturers.jsp");
         }
         requestDispatcher.forward(request, response);
+    }
 
+    private void initConstants(HttpServletRequest request) {
+        request.setAttribute("BORDER_WIDTH_0", BORDER_WIDTH_0);
+        request.setAttribute("TWO_COLUMNS", TWO_COLUMNS);
+
+        request.setAttribute("MANUFACTURER_TITLE", MANUFACTURER_TITLE);
+        request.setAttribute("MANUFACTURER_NAME", MANUFACTURER_NAME);
     }
 }

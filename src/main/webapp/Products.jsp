@@ -5,22 +5,23 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Products List</title>
+    <title>${PRODUCTS_TITLE}</title>
 </head>
 <body>
-<a href="/index.html">Home</a><br>
-<h3>Products List</h3>
+<a href="/index.html">${HOME}</a><br>
+<h3>${PRODUCTS_TITLE}</h3>
 
 <p style="color: red;">${errorString}</p>
 
-<table border="1" cellpadding="5" cellspacing="1" >
+<table border="${BORDER_WIDTH_1}" cellpadding="${CELL_PADDING_5}" cellspacing="${CELL_SPACING_1}">
     <tr>
-        <th>UUID</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Manufacturer</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th>${UUID_HEADER}</th>
+        <th>${NAME}</th>
+        <th>${PRICE}</th>
+        <th>${MANUFACTURER}</th>
+        <th>${EDIT}</th>
+        <th>${DELETE}</th>
+
     </tr>
     <c:forEach items="${productsList}" var="product" >
         <tr>
@@ -32,13 +33,16 @@
                 <a href="/product/update?id=${product.id}">Update</a>
             </td>
             <td>
-                <a href="/product/delete?id=${product.id}">Delete</a>
+                <form method="POST" action="/product/delete">
+                    <input type="hidden" name="id" value="${product.id}" />
+                    <input type="submit" value="Delete" />
+                </form>
             </td>
         </tr>
     </c:forEach>
 </table>
 <br>
-<a href="/product/add">Create new Product</a>
+<a href="/product/add">${PRODUCT_CREATE}</a>
 
 </body>
 </html>

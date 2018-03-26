@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static ua.goit.servlets.utils.Constants.initManufacturersConstants;
+
+
 @WebServlet(name = "ManufacturersServlet", urlPatterns = {"/manufacturer/all"})
 public class ManufacturersServlet extends HttpServlet{
 
@@ -21,6 +24,7 @@ public class ManufacturersServlet extends HttpServlet{
 
         request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
 
+        initManufacturersConstants(request);
         RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Manufacturers.jsp");
         requestDispatcher.forward(request, response);
     }

@@ -20,6 +20,7 @@
         <jstl.version>1.2</jstl.version>
         <jstl-api.version>1.2</jstl-api.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <apache.commons-lang3.version>3.7</apache.commons-lang3.version>
         <hibernate.core.version>5.2.5.Final</hibernate.core.version>
         <hibernate.jpa.api.version>1.0.0.Final</hibernate.jpa.api.version>
         <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
@@ -71,6 +72,12 @@
             <artifactId>jstl-api</artifactId>
             <version>${jstl-api.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.commons-lang3.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

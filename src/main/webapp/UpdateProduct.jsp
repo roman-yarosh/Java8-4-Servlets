@@ -1,29 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%page import=%>
+
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Edit Product</title>
+    <title>${PRODUCT_EDIT}</title>
 </head>
 <body>
-<h3>Edit Product</h3>
+<h3>${PRODUCT_EDIT}</h3>
 
 <p style="color: red;">${errorString}</p>
 
 <form method="POST" action="/product/update">
-    <table border="0">
+    <table border="${BORDER_WIDTH_0}">
         <tr>
-            <td>Product name</td>
+            <td>${PRODUCT_NAME}</td>
             <td><input type="text" name="productName" value="${product.name}" />
                 <input type="hidden" name="productId" value="${product.id}" /></td>
         </tr>
         <tr>
-            <td>Product price</td>
+            <td>${PRODUCT_PRICE}</td>
             <td><input type="text" name="productPrice" value="${product.price}"/></td>
         </tr>
         <tr>
-            <td>Manufacturer name</td>
+            <td>${MANUFACTURER_NAME}</td>
             <td>
                 <select name="manufacturerId">
                     <c:forEach items="${manufacturersList}" var="manufacturer">

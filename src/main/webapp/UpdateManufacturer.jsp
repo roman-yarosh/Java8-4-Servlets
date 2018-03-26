@@ -4,22 +4,22 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Edit Manufacturer</title>
+    <title>${MANUFACTURER_EDIT}</title>
 </head>
 <body>
-<h3>Edit Manufacturer</h3>
+<h3>${MANUFACTURER_EDIT}</h3>
 
 <p style="color: red;">${errorString}</p>
 
 <form method="POST" action="/manufacturer/update">
-    <table border="0">
+    <table border="${BORDER_WIDTH_0}">
         <tr>
-            <td>Manufacturer name</td>
+            <td>${MANUFACTURER_NAME}</td>
             <td><input type="text" name="manufacturerName" value="${manufacturerName}" />
                 <input type="hidden" name="manufacturerId" value="${manufacturerId}" /></td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="${TWO_COLUMNS}">
                 <input type="submit" value="Submit" />&nbsp;
                 <a href="/manufacturer/all">Cancel</a>
             </td>

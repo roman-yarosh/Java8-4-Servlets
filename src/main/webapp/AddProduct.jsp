@@ -4,25 +4,25 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Create new Product</title>
+    <title>${PRODUCT_TITLE}</title>
 </head>
 <body>
-<h3>Create new Product</h3>
+<h3>${PRODUCT_TITLE}</h3>
 
 <p style="color: red;">${errorString}</p>
 
 <form method="POST" action="/product/add">
-    <table border="0">
+    <table border="${BORDER_WIDTH_0}">
         <tr>
-            <td>Product name</td>
+            <td>${PRODUCT_NAME}</td>
             <td><input type="text" name="productName" value=""/></td>
         </tr>
         <tr>
-            <td>Product price</td>
+            <td>${PRODUCT_PRICE}</td>
             <td><input type="text" name="productPrice" value=""/></td>
         </tr>
         <tr>
-            <td>Manufacturer name</td>
+            <td>${MANUFACTURER_NAME}</td>
             <td>
                 <select name="manufacturerId">
                     <c:forEach items="${manufacturersList}" var="manufacturer">
@@ -32,7 +32,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="${TWO_COLUMNS}">
                 <input type="submit" value="Submit"/>&nbsp;
                 <a href="/product/all">Cancel</a>
             </td>

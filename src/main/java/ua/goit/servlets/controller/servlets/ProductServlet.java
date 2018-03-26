@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static ua.goit.servlets.utils.Constants.initProductsConstants;
+
+
 @WebServlet(name = "ProductServlet", urlPatterns = "/product/all")
 public class ProductServlet extends HttpServlet {
 
@@ -21,6 +24,7 @@ public class ProductServlet extends HttpServlet {
 
         request.setAttribute("productsList", hibernateProductDao.getAll());
 
+        initProductsConstants(request);
         RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher("/Products.jsp");
         requestDispatcher.forward(request, response);
     }

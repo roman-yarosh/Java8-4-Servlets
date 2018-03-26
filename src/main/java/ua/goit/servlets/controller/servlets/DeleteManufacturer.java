@@ -1,5 +1,6 @@
 package ua.goit.servlets.controller.servlets;
 
+import org.apache.commons.lang3.StringUtils;
 import ua.goit.servlets.model.dao.hibernate.HibernateManufacturerDao;
 import ua.goit.servlets.model.entity.Manufacturer;
 import ua.goit.servlets.utils.HibernateUtil;
@@ -14,25 +15,29 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
+import static ua.goit.servlets.utils.Constants.initManufacturersConstants;
+
 @WebServlet(name = "DeleteManufacturer", urlPatterns = "/manufacturer/delete" )
 public class DeleteManufacturer extends HttpServlet{
 
     HibernateManufacturerDao hibernateManufacturerDao = HibernateManufacturerDao.getInstance(HibernateUtil.getSessionFactory());
 
+
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String manufacturerId = request.getParameter("id");
         String errorString = null;
         Manufacturer manufacturer = null;
         Optional<Manufacturer> manufacturerOptional;
 
-        if (manufacturerId == null || manufacturerId.isEmpty()) {
+        if (StringUtils.isEmpty(manufacturerId)) {
             errorString = "Manufacturer UUID is empty!";
         }
 
         RequestDispatcher requestDispatcher;
-        if (errorString == null) {
+        if (StringUtils.isEmpty(errorString)) {
             manufacturerOptional = hibernateManufacturerDao.read(UUID.fromString(manufacturerId));
             if (manufacturerOptional.isPresent()){
                 manufacturer = manufacturerOptional.get();
@@ -43,6 +48,7 @@ public class DeleteManufacturer extends HttpServlet{
         }
         request.setAttribute("errorString", errorString);
         request.setAttribute("manufacturersList", hibernateManufacturerDao.getAll());
+        initManufacturersConstants(request);
         requestDispatcher = request.getServletContext().getRequestDispatcher("/Manufacturers.jsp");
         requestDispatcher.forward(request, response);
     }
